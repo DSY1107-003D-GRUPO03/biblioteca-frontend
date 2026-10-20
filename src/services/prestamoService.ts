@@ -1,11 +1,12 @@
 import type { Prestamo } from "../types/Prestamo";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-
+//En local, ms-prestamo corre aparte (8081). Con el API Gateway no hace falta definirla.
+const PRESTAMOS_URL = import.meta.env.VITE_PRESTAMOS_API_BASE_URL ?? API_BASE_URL;
 
 export async function obtenerMisPrestamos(accessToken:string) : Promise<Prestamo[]> {
     
-    const response = await fetch(`${API_BASE_URL}/api/prestamos`, {
+    const response = await fetch(`${PRESTAMOS_URL}/api/prestamos`, {
         headers : {
             Authorization : `Bearer ${accessToken}`,
         },
@@ -19,7 +20,8 @@ export async function obtenerMisPrestamos(accessToken:string) : Promise<Prestamo
 }
 
 export async function solicitarPrestamo(libroId : number, accessToken : string) : Promise<Prestamo> {
-    const response = await fetch(`${API_BASE_URL}/api/write/prestamos`, {
+    
+    const response = await fetch(`${PRESTAMOS_URL}/api/write/prestamos`, {
         method : "POST",
         headers : {
             "Content-Type" : "application/json",
