@@ -6,6 +6,7 @@ import { MisPrestamosPage } from "./pages/MisPrestamosPage"
 import { AdminLibrosPage } from "./pages/AdminLibrosPage"
 import { AuthProvider } from "./auth/AuthProvider"
 import { ProtectedRoute } from "./auth/ProtectedRoute"
+import { HistorialPage } from "./pages/HistorialPage"
 
 function App() {
   return (
@@ -23,6 +24,14 @@ function App() {
                   </ProtectedRoute>
                 }/>
               <Route path="/admin/libros" element={<AdminLibrosPage/>}></Route>
+              <Route
+                path="/historial"
+                element={
+                  <ProtectedRoute>
+                      <HistorialPage/>
+                  </ProtectedRoute>
+                }/>
+
             </Routes>
       </BrowserRouter>
     </AuthProvider>

@@ -11,7 +11,7 @@ export function NavBar() {
             <Link to="/">Catálogo</Link>
             <Link to="/prestamos">Mis Prestamos</Link>
             <Link to="/admin/libros">Administrar</Link>
-
+            <Link to="/historial">Historial</Link>
             <div style={{marginLeft : "auto"}}>
                 { isAuthenticated ? (
                     <>
