@@ -37,3 +37,18 @@ export async function solicitarPrestamo(libroId : number, accessToken : string) 
     return response.json();
     
 }
+
+export async function devolverPrestamo(id : number, accessToken : string) : Promise<Prestamo> {
+    const response = await fetch(`${PRESTAMOS_URL}/api/write/prestamos/${id}/devolucion`, {
+        method : "POST",
+        headers : {
+            Authorization : `Bearer ${accessToken}`,
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error(`Error al devolver el prestamo: ${response.status}`);
+    }
+
+    return response.json();
+}
