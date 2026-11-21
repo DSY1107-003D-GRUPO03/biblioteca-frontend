@@ -13,30 +13,40 @@ const enlaces = [
 export function NavBar() {
 
     const { isAuthenticated, account, login, logout } = useAuth();
+    const correo = account?.username ?? "";
 
     return (
-        <nav className="navbar" aria-label="Principal">
+        <header className="navbar">
             <div className="contenedor navbar-interior">
-                <ul className="navbar-enlaces">
-                    {enlaces.map(({ to, texto, icono: Icono, end }) => (
-                        <li key={to}>
-                            <NavLink
-                                to={to}
-                                end={end}
-                                className="navbar-enlace"
-                                aria-label={texto}
-                                title={texto}
-                            >
-                                <Icono size={20} strokeWidth={1.75} aria-hidden="true" />
-                                <span className="navbar-texto">{texto}</span>
-                            </NavLink>
-                        </li>
-                    ))}
-                </ul>
+                <NavLink to="/" className="navbar-marca" aria-label="Biblioteca">
+                    <BookOpen size={20} strokeWidth={1.75} aria-hidden="true" />
+                    <span className="navbar-marca-texto">Biblioteca</span>
+                </NavLink>
+                <nav aria-label="Principal" className="navbar-nav">
+                    <ul className="navbar-enlaces">
+                        {enlaces.map(({ to, texto, icono: Icono, end }) => (
+                            <li key={to}>
+                                <NavLink
+                                    to={to}
+                                    end={end}
+                                    className="navbar-enlace"
+                                    aria-label={texto}
+                                    title={texto}
+                                >
+                                    <Icono size={20} strokeWidth={1.75} aria-hidden="true" />
+                                    <span className="navbar-texto">{texto}</span>
+                                </NavLink>
+                            </li>
+                        ))}
+                    </ul>
+                </nav>
                 <div className="navbar-sesion">
                     { isAuthenticated ? (
                         <>
-                            <span className="navbar-usuario">{account?.username}</span>
+                            <span className="navbar-usuario" title={correo}>
+                                <span className="navbar-inicial" aria-hidden="true">{correo.charAt(0)}</span>
+                                <span className="navbar-correo">{correo}</span>
+                            </span>
                             <button
                                 type="button"
                                 className="boton-secundario"
@@ -60,6 +70,6 @@ export function NavBar() {
                     )}
                 </div>
             </div>
-        </nav>
+        </header>
     )
 }
