@@ -7,6 +7,7 @@ import { AdminLibrosPage } from "./pages/AdminLibrosPage"
 import { AuthProvider } from "./auth/AuthProvider"
 import { ProtectedRoute } from "./auth/ProtectedRoute"
 import { HistorialPage } from "./pages/HistorialPage"
+import { EstadisticasPage } from "./pages/EstadisticasPage"
 
 function App() {
   return (
@@ -29,6 +30,13 @@ function App() {
                 element={
                   <ProtectedRoute>
                       <HistorialPage/>
+                  </ProtectedRoute>
+                }/>
+              <Route
+                path="/estadisticas"
+                element={
+                  <ProtectedRoute>
+                      <EstadisticasPage/>
                   </ProtectedRoute>
                 }/>
 

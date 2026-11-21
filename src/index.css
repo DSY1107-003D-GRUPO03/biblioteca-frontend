@@ -218,6 +218,189 @@ table {
   background: var(--verde-claro);
 }
 
+/* Estadísticas */
+.pagina {
+  padding-block: var(--esp-6);
+}
+
+.texto-suave {
+  color: var(--tinta-suave);
+}
+
+.totales {
+  display: grid;
+  gap: var(--esp-4);
+  margin-bottom: var(--esp-8);
+}
+
+@media (min-width: 768px) {
+  .totales {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.total {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--esp-3);
+}
+
+.total p {
+  margin: 0;
+}
+
+.total-etiqueta {
+  color: var(--tinta-suave);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.total-numero {
+  font-family: var(--fuente-titulo);
+  font-size: 2.75rem;
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+.total-icono {
+  flex-shrink: 0;
+  color: var(--verde);
+}
+
+.seccion {
+  margin-bottom: var(--esp-8);
+}
+
+.ranking {
+  display: grid;
+  gap: var(--esp-4);
+  margin: 0;
+  list-style: none;
+}
+
+.ranking-fila {
+  display: grid;
+  grid-template-columns: 2rem 1fr;
+  align-items: center;
+  gap: var(--esp-3);
+}
+
+.ranking-posicion {
+  font-family: var(--fuente-titulo);
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.ranking-cuerpo {
+  display: grid;
+  gap: var(--esp-1);
+}
+
+.ranking-titulo {
+  font-weight: 500;
+}
+
+.ranking-barra {
+  width: 100%;
+  height: 14px;
+  appearance: none;
+  border: 0;
+  border-radius: var(--radio);
+  background: var(--laton-claro);
+  overflow: hidden;
+}
+
+.ranking-barra::-webkit-progress-bar {
+  background: var(--laton-claro);
+}
+
+.ranking-barra::-webkit-progress-value {
+  background: var(--laton);
+  border-radius: var(--radio);
+}
+
+.ranking-barra::-moz-progress-bar {
+  background: var(--laton);
+  border-radius: var(--radio);
+}
+
+.ranking-cantidad {
+  grid-column: 2;
+  color: var(--tinta-suave);
+  font-size: 0.875rem;
+}
+
+@media (min-width: 768px) {
+  .ranking-fila {
+    grid-template-columns: 2rem 1fr auto;
+  }
+
+  .ranking-cantidad {
+    grid-column: auto;
+    min-width: 6rem;
+    text-align: right;
+  }
+}
+
+.sin-stock-lista {
+  display: grid;
+  gap: var(--esp-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sin-stock {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--esp-3);
+  background: var(--burdeos-claro);
+  border-color: var(--burdeos);
+}
+
+.sin-stock-titulo {
+  font-weight: 500;
+}
+
+.aviso-error {
+  border-color: var(--burdeos);
+  background: var(--burdeos-claro);
+}
+
+.aviso-error p,
+.aviso-vacio p {
+  margin: 0 0 var(--esp-3);
+}
+
+.aviso-vacio p {
+  margin: 0;
+  color: var(--tinta-suave);
+}
+
+.skeleton {
+  background: var(--borde);
+  animation: skeleton-pulso 1.2s ease-in-out infinite;
+}
+
+.skeleton-total {
+  height: 6rem;
+}
+
+.skeleton-lista {
+  height: 14rem;
+}
+
+@keyframes skeleton-pulso {
+  50% {
+    opacity: .5;
+  }
+}
+
 /* NavBar */
 .navbar {
   background: var(--superficie);
