@@ -51,35 +51,45 @@ export function LibroDetallePage() {
 
         if(!isAuthenticated) {
             return (
-                <section>
-                    <p>Debes iniciar sesión para ver el detalle del libro.</p>
-                    <button type="button" onClick={() => void login()}>
-                        Iniciar sesión
-                    </button>
+                <section className="contenedor pagina">
+                    <div className="tarjeta detalle">
+                        <p className="mensaje">Debes iniciar sesión para ver el detalle del libro.</p>
+                        <button type="button" className="boton" onClick={() => void login()}>
+                            Iniciar sesión
+                        </button>
+                    </div>
                 </section>
             );
         }
 
-        if (cargando) return <p>Cargando libro...</p>
-        if (error) return <p>Error: {error}</p>
-        if (!libro) return <p>Libro no encontrado.</p>
+        if (cargando) return <p className="contenedor pagina mensaje">Cargando libro...</p>
+        if (error) return <p className="contenedor pagina mensaje-error">Error: {error}</p>
+        if (!libro) return <p className="contenedor pagina mensaje">Libro no encontrado.</p>
 
         return (
-            <div>
-                <h1>{libro.titulo}</h1>
-                <p>Autor : {libro.autor}</p>
-                <p>ISBN : {libro.isbn}</p>
-                <p>Stock : {libro.stock}</p>
-            
-                <button
-                    type="button"
-                    disabled={!libro.disponible || solicitando}
-                    onClick={() => void handleSolicitarPrestamo()}
-                >
-                    {solicitando ? "Solicitando..." : "Solicitar prestamo"}
-                </button>
+            <div className="contenedor pagina">
+                <div className="tarjeta detalle">
+                    <h1>{libro.titulo}</h1>
+                    <dl className="detalle-datos">
+                        <dt>Autor</dt>
+                        <dd>{libro.autor}</dd>
+                        <dt>ISBN</dt>
+                        <dd>{libro.isbn}</dd>
+                        <dt>Stock</dt>
+                        <dd>{libro.stock}</dd>
+                    </dl>
 
-                {mensaje && <p>{mensaje}</p> }
+                    <button
+                        type="button"
+                        className="boton"
+                        disabled={!libro.disponible || solicitando}
+                        onClick={() => void handleSolicitarPrestamo()}
+                    >
+                        {solicitando ? "Solicitando..." : "Solicitar prestamo"}
+                    </button>
+
+                    {mensaje && <p className="mensaje">{mensaje}</p> }
+                </div>
             </div>
         );
 

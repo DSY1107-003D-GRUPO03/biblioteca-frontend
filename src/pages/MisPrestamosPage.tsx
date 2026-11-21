@@ -36,30 +36,40 @@ export function MisPrestamosPage() {
         }
     }
 
-    if (cargando) return <p>Cargando tus préstamos...</p>;
-    if (error) return <p>Error : {error}</p>
+    if (cargando) return <p className="contenedor pagina mensaje">Cargando tus préstamos...</p>;
+    if (error) return <p className="contenedor pagina mensaje-error">Error : {error}</p>
 
     return (
-        <div>
+        <div className="contenedor pagina">
             <h1>Mis préstamos</h1>
-            {mensaje && <p>{mensaje}</p>}
+            {mensaje && <p className="mensaje">{mensaje}</p>}
             {prestamos.length === 0 ?(
-                <p>No tienes préstamos.</p>
+                <p className="mensaje">No tienes préstamos.</p>
             ) : (
-                <ul>
+                <ul className="prestamos">
                     {prestamos.map((p) => (
-                        <li key={p.id}>
-                            {p.titulo} - {p.estado} - desde {new Date(p.fechaPrestamo).toLocaleDateString()}
-                            {p.estado === "ACTIVO" && (
-                                <button
-                                    type="button"
-                                    style={{ marginLeft : "0.5rem" }}
-                                    disabled={devolviendoId === p.id}
-                                    onClick={() => void handleDevolver(p.id)}
-                                >
-                                    {devolviendoId === p.id ? "Devolviendo..." : "Devolver"}
-                                </button>
-                            )}
+                        <li key={p.id} className="tarjeta prestamo">
+                            <div className="prestamo-datos">
+                                <span className="prestamo-titulo">{p.titulo}</span>
+                                <span className="texto-suave">
+                                    Desde {new Date(p.fechaPrestamo).toLocaleDateString()}
+                                </span>
+                            </div>
+                            <div className="prestamo-acciones">
+                                <span className={p.estado === "ACTIVO" ? "etiqueta etiqueta-laton" : "etiqueta"}>
+                                    {p.estado}
+                                </span>
+                                {p.estado === "ACTIVO" && (
+                                    <button
+                                        type="button"
+                                        className="boton-secundario"
+                                        disabled={devolviendoId === p.id}
+                                        onClick={() => void handleDevolver(p.id)}
+                                    >
+                                        {devolviendoId === p.id ? "Devolviendo..." : "Devolver"}
+                                    </button>
+                                )}
+                            </div>
                         </li>
                     ))}
                 </ul>

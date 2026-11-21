@@ -65,65 +65,97 @@ export function AdminLibrosPage() {
 
     if (!isAuthenticated) {
         return (
-            <section>
-                <p>Debes iniciar sesion para administrar el catálogo</p>
-                <button type="button" onClick={() => void login()}>
-                    Iniciar sesión
-                </button>
+            <section className="contenedor pagina">
+                <div className="tarjeta detalle">
+                    <p className="mensaje">Debes iniciar sesion para administrar el catálogo</p>
+                    <button type="button" className="boton" onClick={() => void login()}>
+                        Iniciar sesión
+                    </button>
+                </div>
             </section>
         );
     }
 
-    if (esAdmin === null) return <p>Verificando permisos...</p>
-    if (!esAdmin) return <p>No tiene permisos de administrador para ver esta pagina.</p>
+    if (esAdmin === null) return <p className="contenedor pagina mensaje">Verificando permisos...</p>
+    if (!esAdmin) return <p className="contenedor pagina mensaje-error">No tiene permisos de administrador para ver esta pagina.</p>
 
     return (
-        <div>
+        <div className="contenedor pagina">
             <h1>Administrar catálogo</h1>
 
-            <form onSubmit={(e) => void handleCrear(e)} style={{ marginBottom : "1.5rem"}}>
-                <input
-                    placeholder="Titulo"
-                    value={form.titulo}
-                    onChange={(e) => setForm({...form, titulo : e.target.value})}
-                    required
-                />
-                <input
-                    placeholder="Autor"
-                    value={form.autor}
-                    onChange={(e) => setForm({...form, autor : e.target.value})}
-                    required
-                />
-                <input
-                    placeholder="ISBN"
-                    value={form.isbn}
-                    onChange={(e) => setForm({...form, isbn : e.target.value})}
-                    required
-                />
-                <input
-                    type="number"
-                    min={0}
-                    value={form.stock}
-                    onChange={(e) => setForm({...form, stock : Number(e.target.value)})}
-                    required
-                />
-                <button type="submit">Agregar Libro</button>
+            <form className="tarjeta formulario" onSubmit={(e) => void handleCrear(e)}>
+                <div className="formulario-campos">
+                    <label className="campo">
+                        <span className="campo-etiqueta">Título</span>
+                        <input
+                            placeholder="Titulo"
+                            value={form.titulo}
+                            onChange={(e) => setForm({...form, titulo : e.target.value})}
+                            required
+                        />
+                    </label>
+                    <label className="campo">
+                        <span className="campo-etiqueta">Autor</span>
+                        <input
+                            placeholder="Autor"
+                            value={form.autor}
+                            onChange={(e) => setForm({...form, autor : e.target.value})}
+                            required
+                        />
+                    </label>
+                    <label className="campo">
+                        <span className="campo-etiqueta">ISBN</span>
+                        <input
+                            placeholder="ISBN"
+                            value={form.isbn}
+                            onChange={(e) => setForm({...form, isbn : e.target.value})}
+                            required
+                        />
+                    </label>
+                    <label className="campo">
+                        <span className="campo-etiqueta">Stock</span>
+                        <input
+                            type="number"
+                            min={0}
+                            value={form.stock}
+                            onChange={(e) => setForm({...form, stock : Number(e.target.value)})}
+                            required
+                        />
+                    </label>
+                </div>
+                <div className="formulario-acciones">
+                    <button type="submit" className="boton">Agregar Libro</button>
+                </div>
             </form>
 
-                {error && <p style={{color : 'red'}}>{error}</p> }
+                {error && <p className="mensaje-error">{error}</p> }
                 {cargando ? (
-                    <p>Cargano...</p>
+                    <p className="mensaje">Cargano...</p>
                 ) : (
-                    <ul>
-                        {libros.map((libro) => (
-                            <li key={libro.id}>
-                                {libro.titulo} - stock : {libro.stock}{" "}
-                                <button type="button" onClick={() => void handleEliminar(libro.id)}>
-                                    Eliminar
-                                </button>
-                            </li>
-                        ))}
-                    </ul>
+                    <div className="tarjeta tabla-contenedor">
+                        <table className="tabla">
+                            <thead>
+                                <tr>
+                                    <th>Título</th>
+                                    <th>Stock</th>
+                                    <th className="tabla-acciones">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {libros.map((libro) => (
+                                    <tr key={libro.id}>
+                                        <td>{libro.titulo}</td>
+                                        <td>{libro.stock}</td>
+                                        <td className="tabla-acciones">
+                                            <button type="button" className="boton-peligro" onClick={() => void handleEliminar(libro.id)}>
+                                                Eliminar
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 )}
         </div>
     )

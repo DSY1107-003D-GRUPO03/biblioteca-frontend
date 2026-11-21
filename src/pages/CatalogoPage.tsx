@@ -18,19 +18,22 @@ export function CatalogoPage() {
         .finally(() => setCargando(false));
     }, []);
 
-    if (cargando) return <p>Cargando catalogo...</p>;
-    if (error) return <p>Error: {error}</p>;
+    if (cargando) return <p className="contenedor pagina mensaje">Cargando catalogo...</p>;
+    if (error) return <p className="contenedor pagina mensaje-error">Error: {error}</p>;
 
     return (
-        <div>
+        <div className="contenedor pagina">
             <h1>Catálogo de libros</h1>
-            <ul>
+            <ul className="catalogo">
                 {libros.map((libro) => (
-                    <li key={libro.id}>
-                        <Link to={`/libros/${libro.id}`}>
-                            <strong>{libro.titulo}</strong>
-                        </Link>
-                        {" "} - {libro.autor} ({libro.disponible ? "disponible" : "sin stock"} )
+                    <li key={libro.id} className="tarjeta libro-tarjeta">
+                        <h2 className="libro-titulo">
+                            <Link to={`/libros/${libro.id}`}>{libro.titulo}</Link>
+                        </h2>
+                        <p className="libro-autor">{libro.autor}</p>
+                        <span className={libro.disponible ? "etiqueta" : "etiqueta etiqueta-alerta"}>
+                            {libro.disponible ? "Disponible" : "Sin stock"}
+                        </span>
                     </li>
                 ))}
             </ul>

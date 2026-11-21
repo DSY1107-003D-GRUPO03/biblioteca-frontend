@@ -30,48 +30,52 @@ export function HistorialPage() {
     }, [tipo]);
 
     return (
-        <div>
+        <div className="contenedor pagina">
             <h1>Historial de eventos</h1>
 
-            <label>
-                Filtrar por tipo:{" "}
-                <select value={tipo} onChange={(e) => setTipo(e.target.value)}>
-                    <option value="">Todos</option>
-                    {TIPOS.map((t) => (
-                        <option key={t} value={t}>{t}</option>
-                    ))}
-                </select>
-            </label>
+            <div className="tarjeta filtro">
+                <label className="campo">
+                    <span className="campo-etiqueta">Filtrar por tipo</span>
+                    <select value={tipo} onChange={(e) => setTipo(e.target.value)}>
+                        <option value="">Todos</option>
+                        {TIPOS.map((t) => (
+                            <option key={t} value={t}>{t}</option>
+                        ))}
+                    </select>
+                </label>
+            </div>
 
-            {cargando && <p>Cargando historial...</p>}
-            {error && <p>Error : {error}</p>}
+            {cargando && <p className="mensaje">Cargando historial...</p>}
+            {error && <p className="mensaje-error">Error : {error}</p>}
 
             {!cargando && !error && (
                 entradas.length === 0 ? (
-                    <p>No hay eventos registrados.</p>
+                    <p className="mensaje">No hay eventos registrados.</p>
                 ) : (
-                    <table style={{ marginTop : "1rem", borderCollapse : "collapse" }}>
-                        <thead>
-                            <tr>
-                                <th style={{ padding : "0.25rem 0.75rem" }}>Fecha</th>
-                                <th style={{ padding : "0.25rem 0.75rem" }}>Tipo</th>
-                                <th style={{ padding : "0.25rem 0.75rem" }}>Libro</th>
-                                <th style={{ padding : "0.25rem 0.75rem" }}>Préstamo</th>
-                                <th style={{ padding : "0.25rem 0.75rem" }}>Usuario</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {entradas.map((e) => (
-                                <tr key={e.id}>
-                                    <td style={{ padding : "0.25rem 0.75rem" }}>{new Date(e.recibidoEn).toLocaleString()}</td>
-                                    <td style={{ padding : "0.25rem 0.75rem" }}>{e.tipo}</td>
-                                    <td style={{ padding : "0.25rem 0.75rem" }}>{e.libroId ?? "-"}</td>
-                                    <td style={{ padding : "0.25rem 0.75rem" }}>{e.prestamoId ?? "-"}</td>
-                                    <td style={{ padding : "0.25rem 0.75rem" }}>{e.usuario ? `${e.usuario.slice(0, 8)}...` : "-"}</td>
+                    <div className="tarjeta tabla-contenedor">
+                        <table className="tabla">
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Tipo</th>
+                                    <th>Libro</th>
+                                    <th>Préstamo</th>
+                                    <th>Usuario</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {entradas.map((e) => (
+                                    <tr key={e.id}>
+                                        <td>{new Date(e.recibidoEn).toLocaleString()}</td>
+                                        <td><span className="etiqueta">{e.tipo}</span></td>
+                                        <td>{e.libroId ?? "-"}</td>
+                                        <td>{e.prestamoId ?? "-"}</td>
+                                        <td>{e.usuario ? `${e.usuario.slice(0, 8)}...` : "-"}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 )
             )}
         </div>
