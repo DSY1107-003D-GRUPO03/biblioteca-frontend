@@ -107,6 +107,8 @@ export function AdminLibrosPage() {
                         <span className="campo-etiqueta">ISBN</span>
                         <input
                             placeholder="ISBN"
+                            pattern="[0-9\-]{10,17}"
+                            title="Solo dígitos y guiones, entre 10 y 17 caracteres (ej. 978-0-00-000000-1)"
                             value={form.isbn}
                             onChange={(e) => setForm({...form, isbn : e.target.value})}
                             required

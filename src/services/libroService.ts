@@ -35,6 +35,24 @@ export interface NuevoLibroRequest {
     stock : number;
 }
 
+async function leerMensajeError(response : Response) : Promise<string> {
+    const respaldo = `No se pudo crear el libro (código ${response.status})`;
+    try {
+        const cuerpo = await response.json();
+        if (typeof cuerpo === "string" && cuerpo) return cuerpo;
+        if (cuerpo && typeof cuerpo === "object") {
+            for (const clave of ["message", "mensaje", "error", "detail"]) {
+                if (typeof cuerpo[clave] === "string" && cuerpo[clave]) return cuerpo[clave];
+            }
+            const textos = Object.values(cuerpo).flat().filter((v) => typeof v === "string");
+            if (textos.length > 0) return textos.join(". ");
+        }
+    } catch {
+        // cuerpo no legible: se usa el mensaje de respaldo
+    }
+    return respaldo;
+}
+
 export async function crearLibro (request : NuevoLibroRequest, accessToken : string) : Promise<Libro> {
     const response = await fetch (`${API_BASE_URL}/api/admin/libros`, {
         method : "POST",
@@ -46,7 +64,7 @@ export async function crearLibro (request : NuevoLibroRequest, accessToken : str
     });
 
     if (!response.ok) {
-        throw new Error(`Error al crear libro: ${response.status}`)
+        throw new Error(await leerMensajeError(response));
     }
 
     return response.json();
